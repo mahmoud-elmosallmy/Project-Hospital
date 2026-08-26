@@ -34,13 +34,16 @@ class AuthController extends Controller
             'last_name' => $request->last_name,
             'role_id' => $request->role_id,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' => Hash::make($request->password),
             'phone' => $request->phone
             ]);
+
+            $token = $user->createToken('auth_token')->plainTextToken;
             $data = [
                 "message" => "User Registered Successfully",
                 "status" => "201",
-                "user" => $user
+                "user" => $user,
+                "token" => $token
             ];
             return response()->json($data, 201);
         }
