@@ -19,6 +19,10 @@ return new class extends Migration
             $table->string("subject");
             $table->text("message");
             $table->enum("status",["0","1"]);
+            /*
+            0 = رسالة جديدة / لم تتم معالجتها
+            1 = تمت معالجة الرسالة
+            */
             $table->timestamps();
         });
     }
