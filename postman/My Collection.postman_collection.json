@@ -1,0 +1,683 @@
+{
+  "info": {
+    "_postman_id": "2701f896-ce43-41cb-a395-dfc841b90b02",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57653482",
+    "_collection_link": "https://go.postman.co/collection/57653482-2701f896-ce43-41cb-a395-dfc841b90b02?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "project_hospital",
+      "item": [
+        {
+          "name": "users",
+          "item": [
+            {
+              "name": "get-all-users",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"first_name\":\"mina\",\r\n    \"last_name\":\"awad\",\r\n    \"role_id\":\"1\",\r\n    \"email\":\"mina@gmail.com\",\r\n    \"phone\":\"0123456\",\r\n    \"password\":\"1234567890\",\r\n    \"profile_image\":\"12345\",\r\n    \"status\":\"1\",\r\n    \"email_verified_at\":\"12344\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create user",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application.json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"first_name\":\"goodzella1111\",\r\n    \"last_name\":\"dragon1111\",\r\n    \"role_id\":\"4\",\r\n    \"email\":\"tiger12345@gmail.com\",\r\n    \"phone\":\"012345678912345\",\r\n    \"paome\":\"a2\",\r\n    \"password\":\"1234567891000\",\r\n    \"status\":\"1\"\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update user",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application.json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"first_name\":\"omarsid400\",\r\n    \"last_name\":\"omarsid300\",\r\n    \"email\":\"godzella2000@gmail.com\",\r\n    \"role_id\": 2,\r\n    \"phone\":\"012345678912\",\r\n    \"paome\": \"b3\",\r\n    \"password\":\"123456789\",\r\n    \"status\": 1\r\n    \r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete user",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application.json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"first_name\": \"omarsid\",\r\n    \"last_name\": \"omarsid\",\r\n    \"role_id\": 4,\r\n    \"email\": \"godzella@gmail.com\",\r\n    \"phone\": \"012345678912\",\r\n    \"paome\": \"b3\",\r\n    \"profile_image\": null,\r\n    \"status\": 1\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users/5",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "show user",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/users/2",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "users",
+                    "2"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "doctors",
+          "item": [
+            {
+              "name": "get-all-doctors",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application.json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user_id\":\"3\",\r\n    \"license_number\":\"130\",\r\n    \"qualification\":\"very good\",\r\n    \"specialization\":\"very good\",\r\n    \"experience_years\":\"20 years for experiennces\",\r\n    \"bio\":\"a1\",\r\n    \"consultation_fee\":\"10 years\",\r\n    \"status\":\"1\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/doctors",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "doctors"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create doctor",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user_id\": 3,\r\n    \"license_number\": \"130\",\r\n    \"qualification\": \"very good\",\r\n    \"specialization\": \"General Medicine\",\r\n    \"experience_years\": 20,\r\n    \"bio\": \"experienced doctor\",\r\n    \"consultation_fee\": 100,\r\n    \"status\": \"1\"\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/doctors",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "doctors"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update doctor",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"user_id\":\"3\",\r\n    \"license_number\":\"130\",\r\n    \"qualification\":\"bad\",\r\n    \"specialization\":\"very good\",\r\n    \"experience_years\":\"20 years for experiennces\",\r\n    \"bio\":\"a1\",\r\n    \"consultation_fee\":\"10 years\",\r\n    \"status\":\"1\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/doctors/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "doctors",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete doctor",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "show doctor",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/doctors",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "doctors"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "role",
+          "item": [
+            {
+              "name": "get all roles",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/role",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "role"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "show role",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/role/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "role",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create role",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"ahmed\",\r\n    \"description\":\"no description\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/role",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "role"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update role",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"name\":\"hatem\",\r\n    \"description\":\"no description\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/role/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "role",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete role",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/role/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "role",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "patients",
+          "item": [
+            {
+              "name": "get all patient",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/patient",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "patient"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "show patient",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/patient/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "patient",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "create patient",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n       \"id\": 1,\r\n        \"user_id\": 3,\r\n        \"date_of_birth\": \"2026-08-03\",\r\n        \"gender\": \"male\",\r\n        \"blood_type\": \"o\",\r\n        \"address\": \"fdsfd\",\r\n        \"emergency_contact_name\": \"dsfsd\",\r\n        \"emergency_contact_phone\": \"fafd\",\r\n        \"created_at\": null,\r\n        \"updated_at\": null\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/patient",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "patient"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update patient",
+              "request": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n       \"id\": 1,\r\n        \"user_id\": 3,\r\n        \"date_of_birth\": \"2026-08-03\",\r\n        \"gender\": \"female\",\r\n        \"blood_type\": \"o\",\r\n        \"address\": \"fdsfd\",\r\n        \"emergency_contact_name\": \"dsfsd\",\r\n        \"emergency_contact_phone\": \"fafd\",\r\n        \"created_at\": null,\r\n        \"updated_at\": null\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/patient/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "patient",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "delete patient",
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "aplication/json"
+                  }
+                ],
+                "url": {
+                  "raw": "http://127.0.0.1:8000/api/patient/1",
+                  "protocol": "http",
+                  "host": [
+                    "127",
+                    "0",
+                    "0",
+                    "1"
+                  ],
+                  "port": "8000",
+                  "path": [
+                    "api",
+                    "patient",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

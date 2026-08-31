@@ -13,7 +13,7 @@ class UserController extends Controller
     {
         $user = User::all();
         return response()->json([
-            'message' => 'All Services',
+            'message' => 'All users',
             'status' => 200,
             'data' => $user
         ], 200);

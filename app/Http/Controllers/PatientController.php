@@ -34,7 +34,7 @@ class PatientController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer|exists:Users,id',
-            'date_of_birth' => 'nullable|data',
+            'date_of_birth' => 'nullable|date',
             'gender' => 'required|in:male,female',
             'blood_type' => 'required|string|max:10',
             'address' => 'required|string|max:255',
@@ -95,7 +95,7 @@ class PatientController extends Controller
         }
         $validator = Validator::make($request->all(), [
             'user_id' => 'sometimes|integer|exists:Users,id',
-            'date_of_birth' => 'sometimes|data',
+            'date_of_birth' => 'sometimes|date',
             'gender' => 'sometimes|in:male,female',
             'blood_type' => 'sometimes|string|max:10',
             'address' => 'sometimes|string|max:255',
