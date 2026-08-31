@@ -17,11 +17,16 @@ return new class extends Migration
             $table->foreignId("doctor_id")->constrained("doctors")->onDelete('cascade');
             $table->foreignId("department_id")->constrained("departments")->onDelete('cascade');
 
+            $table->foreignId("doctor_id")->constrained()->onDelete('cascade');
+            $table->foreignId("department_id")->constrained()->onDelete('cascade');
+
             $table->timestamps();
         });
     }
 
-
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('doctor_departments');

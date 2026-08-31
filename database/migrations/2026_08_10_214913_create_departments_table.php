@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("description");
             $table->string("image_department");
-            $table->enum("status",["0","1"]);
+            $table->enum("status",["0","1"])->default('1');
             $table->timestamps();
         });
     }
