@@ -64,7 +64,7 @@ class UserController extends Controller
             $user = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'role_id' => 3,
+            'role_id' => $request->role_id,
             'email' => $request->email,
             'password' => $request->password,
             'phone' => $request->phone,

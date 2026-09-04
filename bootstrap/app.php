@@ -17,6 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->redirectGuestsTo(function (Request $request) {
             return $request->is('api/*') ? null : '/login';
         });
+        $middleware->alias([
+            'permission' => App\Http\Middleware\PerimssionMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         $exceptions->render(function (
