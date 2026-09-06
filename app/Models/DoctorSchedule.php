@@ -3,10 +3,10 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\LogsActivity;
 class DoctorSchedule extends Model
 {
-    use HasFactory;
+    use HasFactory , LogsActivity;
     protected $fillable = [
         'doctor_id',
         'day_of_week',

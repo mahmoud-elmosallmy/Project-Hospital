@@ -13,4 +13,5 @@ class AuditLog extends Model
         'description',
         'ip_address',
     ];
+    
 }

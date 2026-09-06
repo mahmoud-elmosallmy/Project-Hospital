@@ -13,6 +13,16 @@
         {
           "name": "create service",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -54,6 +64,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -95,6 +115,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -134,6 +164,16 @@
         {
           "name": "update services",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -173,6 +213,16 @@
         {
           "name": "delete service",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [
               {
@@ -217,6 +267,16 @@
         {
           "name": "create appointment",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -258,6 +318,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -299,6 +369,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -338,6 +418,16 @@
         {
           "name": "update appointment",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -377,6 +467,16 @@
         {
           "name": "delete appointment",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -419,49 +519,21 @@
       "name": "auditlog",
       "item": [
         {
-          "name": "create auditlog",
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"user_id\": \"1\",\r\n    \"action\": \"login\",\r\n    \"description\": \"loginsuccsess\",\r\n    \"ip_address\": \"127.0.0.1\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/audit-logs",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "audit-logs"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "get all auditlog",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -475,7 +547,7 @@
               "raw": "{\r\n    \"user_id\": \"1\",\r\n    \"action\": \"login\",\r\n    \"description\": \"loginsuccsess\",\r\n    \"ip_address\": \"5\"\r\n}"
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/audit-logs",
+              "raw": "http://127.0.0.1:8000/api/audit_logs",
               "protocol": "http",
               "host": [
                 "127",
@@ -486,7 +558,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "audit-logs"
+                "audit_logs"
               ]
             }
           },
@@ -498,6 +570,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -516,7 +598,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/audit-logs/1",
+              "raw": "http://127.0.0.1:8000/api/audit_logs/1",
               "protocol": "http",
               "host": [
                 "127",
@@ -527,79 +609,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "audit-logs",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update auditlog",
-          "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"user_id\": \"1\",\r\n    \"action\": \"login\",\r\n    \"description\": \"regester sucsees\",\r\n    \"ip_address\": \"127.0.0.1\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/audit-logs/1",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "audit-logs",
-                "1"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete auditlog",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"user_id\": \"1\",\r\n    \"action\": \"login\",\r\n    \"description\": \"loginsuccsess\",\r\n    \"ip_address\": \"127.0.0.1\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://127.0.0.1:8000/api/audit-logs/1",
-              "protocol": "http",
-              "host": [
-                "127",
-                "0",
-                "0",
-                "1"
-              ],
-              "port": "8000",
-              "path": [
-                "api",
-                "audit-logs",
+                "audit_logs",
                 "1"
               ]
             }
@@ -614,6 +624,16 @@
         {
           "name": "creat schedule",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -632,7 +652,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/doctor-schedules",
+              "raw": "http://127.0.0.1:8000/api/doctor_schedules",
               "protocol": "http",
               "host": [
                 "127",
@@ -643,7 +663,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "doctor-schedules"
+                "doctor_schedules"
               ]
             }
           },
@@ -655,6 +675,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -673,7 +703,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/doctor-schedules",
+              "raw": "http://127.0.0.1:8000/api/doctor_schedules",
               "protocol": "http",
               "host": [
                 "127",
@@ -684,7 +714,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "doctor-schedules"
+                "doctor_schedules"
               ]
             }
           },
@@ -696,6 +726,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -714,7 +754,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/doctor-schedules/1",
+              "raw": "http://127.0.0.1:8000/api/doctor_schedules/1",
               "protocol": "http",
               "host": [
                 "127",
@@ -725,7 +765,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "doctor-schedules",
+                "doctor_schedules",
                 "1"
               ]
             }
@@ -735,6 +775,16 @@
         {
           "name": "update schedule",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -745,7 +795,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "  {  \"doctor_id\": \"1\",\r\n    \"day_of_week\": \"Sunday\",\r\n    \"start_time\": \"01:00\",\r\n    \"end_time\":\"05:00\",\r\n    \"avg_duration\":\"50\",\r\n    \"status\":\"available\"\r\n}",
+              "raw": "{\r\n    \"doctor_id\": \"1\",\r\n    \"day_of_week\": \"Sunday\",\r\n    \"start_time\": \"01:00\",\r\n    \"end_time\":\"04:00\",\r\n    \"avg_duration\":\"50\",\r\n    \"status\":\"available\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -753,7 +803,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/doctor-schedules/1",
+              "raw": "http://127.0.0.1:8000/api/doctor_schedules/1",
               "protocol": "http",
               "host": [
                 "127",
@@ -764,7 +814,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "doctor-schedules",
+                "doctor_schedules",
                 "1"
               ]
             }
@@ -774,6 +824,16 @@
         {
           "name": "delete schedule",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [
               {
@@ -784,7 +844,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "   { \"doctor_id\": \"1\",\r\n    \"day_of_week\": \"Sunday\",\r\n    \"start_time\": \"01:00\",\r\n    \"end_time\":\"05:00\",\r\n    \"avg_duration\":\"50\",\r\n    \"status\":\"available\"\r\n}",
+              "raw": "",
               "options": {
                 "raw": {
                   "language": "json"
@@ -792,7 +852,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/doctor-schedules/1",
+              "raw": "http://127.0.0.1:8000/api/doctor_schedules/6",
               "protocol": "http",
               "host": [
                 "127",
@@ -803,8 +863,8 @@
               "port": "8000",
               "path": [
                 "api",
-                "doctor-schedules",
-                "1"
+                "doctor_schedules",
+                "6"
               ]
             }
           },
@@ -818,6 +878,16 @@
         {
           "name": "add record",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -836,7 +906,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/medical-records",
+              "raw": "http://127.0.0.1:8000/api/medical_records",
               "protocol": "http",
               "host": [
                 "127",
@@ -847,7 +917,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "medical-records"
+                "medical_records"
               ]
             }
           },
@@ -859,6 +929,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -877,7 +957,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/medical-records",
+              "raw": "http://127.0.0.1:8000/api/medical_records",
               "protocol": "http",
               "host": [
                 "127",
@@ -888,7 +968,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "medical-records"
+                "medical_records"
               ]
             }
           },
@@ -900,6 +980,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -918,7 +1008,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/medical-records/2",
+              "raw": "http://127.0.0.1:8000/api/medical_records/2",
               "protocol": "http",
               "host": [
                 "127",
@@ -929,7 +1019,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "medical-records",
+                "medical_records",
                 "2"
               ]
             }
@@ -939,6 +1029,16 @@
         {
           "name": "update record",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -957,7 +1057,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/medical-records/2",
+              "raw": "http://127.0.0.1:8000/api/medical_records/2",
               "protocol": "http",
               "host": [
                 "127",
@@ -968,7 +1068,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "medical-records",
+                "medical_records",
                 "2"
               ]
             }
@@ -978,6 +1078,16 @@
         {
           "name": "delete recorrd",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [
               {
@@ -996,7 +1106,7 @@
               }
             },
             "url": {
-              "raw": "http://127.0.0.1:8000/api/medical-records/2",
+              "raw": "http://127.0.0.1:8000/api/medical_records/2",
               "protocol": "http",
               "host": [
                 "127",
@@ -1007,7 +1117,7 @@
               "port": "8000",
               "path": [
                 "api",
-                "medical-records",
+                "medical_records",
                 "2"
               ]
             }
@@ -1022,6 +1132,16 @@
         {
           "name": "add notifcation",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "POST",
             "header": [
               {
@@ -1063,6 +1183,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -1104,6 +1234,16 @@
             "disableBodyPruning": true
           },
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "GET",
             "header": [
               {
@@ -1143,6 +1283,16 @@
         {
           "name": "update notifcation",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "PUT",
             "header": [
               {
@@ -1182,6 +1332,16 @@
         {
           "name": "delete notifcation",
           "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{auth_secret_02bn}}",
+                  "type": "string"
+                }
+              ]
+            },
             "method": "DELETE",
             "header": [
               {
@@ -1219,6 +1379,12 @@
           "response": []
         }
       ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "auth_secret_02bn",
+      "secret": true
     }
   ]
 }

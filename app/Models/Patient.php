@@ -3,9 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Traits\LogsActivity;
 class Patient extends Model
 {
+    use LogsActivity;
     protected $fillable = [
         'user_id',
         'date_of_birth',

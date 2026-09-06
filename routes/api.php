@@ -122,9 +122,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     ->middleware([
         'index' => 'permission:audit_logs.view',
         'show' => 'permission:audit_logs.view',
-        'store' => 'permission:audit_logs.create',
-        'update' => 'permission:audit_logs.update',
-        'destroy' => 'permission:audit_logs.delete',
+       
     ])
     ;
     Route::apiResource('appointments', AppointmentController::class)
