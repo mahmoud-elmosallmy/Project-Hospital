@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Patient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PatientController extends Controller
 {
        public function index()
     {
-        $patient = Patient::all();
+        $patient = Auth::user()->role_id == 1 ? Patient::all() : Patient::where('user_id', Auth::id())->get();
         return response()->json([
             'message' => 'All patient',
             'status' => 200,
@@ -62,7 +63,7 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-     $patient = Patient::find($id);
+     $patient = Auth::user()->role_id == 1 ? Patient::find($id) : Patient::where('user_id', Auth::id())->where('id', $id)->first();
         if (!$patient) {
             return response()->json([
                 'message' => 'patient not found',
@@ -86,7 +87,7 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $patient = Patient::find($id);
+        $patient = Auth::user()->role_id == 1 ? Patient::find($id) : Patient::where('user_id', Auth::id())->where('id', $id)->first();
         if (!$patient) {
             return response()->json([
                 'message' => 'patient not found',
@@ -123,7 +124,7 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        $patient = Patient::find($id);
+        $patient = Auth::user()->role_id == 1 ? Patient::find($id) : Patient::where('user_id', Auth::id())->where('id', $id)->first();
         if(!$patient){
             return response()->json([
                 'message' => 'patient not found',

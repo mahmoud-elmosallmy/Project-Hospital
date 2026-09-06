@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
 use App\Models\MedicalRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,7 +13,12 @@ class MedicalRecordController extends Controller
      */
     public function index()
     {
-     $medicalRecords = MedicalRecord::all();
+    $medicalRecords = Auth::user()->role_id == 1 
+    ? MedicalRecord::all() 
+    : (Auth::user()->role_id == 2 
+        ? MedicalRecord::where('doctor_id', Auth::id())->get() 
+        : MedicalRecord::whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->get());
+     
         return response()->json([
             'message' => 'All Medical Records',
             'status' => 200,
@@ -21,13 +26,6 @@ class MedicalRecordController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +62,11 @@ class MedicalRecordController extends Controller
      */
     public function show($id)
     {
-        $medicalRecord = MedicalRecord::find($id);
+    $medicalRecord = Auth::user()->role_id == 1 
+    ? MedicalRecord::find($id) 
+    : (Auth::user()->role_id == 2 
+        ? MedicalRecord::where('doctor_id', Auth::id())->where('id', $id)->first() 
+        : MedicalRecord::where('id', $id)->whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->first());
         if (!$medicalRecord) {
             return response()->json([
                 'message' => 'Medical Record not found',
@@ -78,20 +80,16 @@ class MedicalRecordController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MedicalRecord $medicalRecord)
-    {
-        //
-    }
+   
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $medicalRecord = MedicalRecord::find($id);
+      $medicalRecord = Auth::user()->role_id == 1 
+        ? MedicalRecord::find($id) 
+        : MedicalRecord::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$medicalRecord) {
             return response()->json([
                 'message' => 'Medical Record not found',
@@ -130,7 +128,9 @@ class MedicalRecordController extends Controller
      */
     public function destroy($id)
     {
-        $medicalRecord = MedicalRecord::find($id);
+        $medicalRecord = Auth::user()->role_id == 1 
+        ? MedicalRecord::find($id) 
+        : MedicalRecord::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$medicalRecord) {
             return response()->json([
                 'message' => 'Medical Record not found',

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorSchedule;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorScheduleController extends Controller
@@ -13,7 +14,7 @@ class DoctorScheduleController extends Controller
      */
     public function index()
     {
-        $doctorSchedules = DoctorSchedule::all();
+        $doctorSchedules = Auth::user()->role_id == 1 ? DoctorSchedule::all() : DoctorSchedule::where('doctor_id', Auth::id())->get();
         return response()->json([
             'message' => 'All Doctor Schedules',
             'status' => 200,
@@ -21,14 +22,7 @@ class DoctorScheduleController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
+    
     /**
      * Store a newly created resource in storage.
      */
@@ -64,7 +58,7 @@ class DoctorScheduleController extends Controller
      */
     public function show($id)
     {
-        $doctorSchedule = DoctorSchedule::find($id);
+        $doctorSchedule = Auth::user()->role_id == 1 ? DoctorSchedule::find($id) : DoctorSchedule::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',
@@ -88,7 +82,7 @@ class DoctorScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $doctorSchedule = DoctorSchedule::find($id);
+        $doctorSchedule = Auth::user()->role_id == 1 ? DoctorSchedule::find($id) : DoctorSchedule::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',
@@ -133,7 +127,7 @@ class DoctorScheduleController extends Controller
      */
     public function destroy($id)
     {
-        $doctorSchedule = DoctorSchedule::find($id);
+        $doctorSchedule = Auth::user()->role_id == 1 ? DoctorSchedule::find($id) : DoctorSchedule::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',

@@ -18,7 +18,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -33,7 +33,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"name\": \"كشف باطنه\",\r\n    \"description\": \"فحص طبي شامل مع رسم قلب\",\r\n    \"price\": \"250\",\r\n    \"status\": \"active\"\r\n}",
+              "raw": "{\r\n         \"name\":\"ahmed\",\r\n        \"description\":\"dess\",\r\n        \"price\":\"200\",\r\n        \"status\":\"active\"\r\n    \r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -69,7 +69,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -120,7 +120,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -169,7 +169,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -218,7 +218,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -272,7 +272,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -323,7 +323,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -374,7 +374,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -423,7 +423,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -472,12 +472,12 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
             },
-            "method": "PUT",
+            "method": "DELETE",
             "header": [
               {
                 "key": "Accept",
@@ -529,7 +529,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -575,7 +575,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -680,7 +680,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -731,7 +731,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -780,7 +780,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -829,7 +829,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -883,7 +883,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -934,7 +934,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -985,7 +985,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1034,7 +1034,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1083,7 +1083,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1137,7 +1137,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1188,7 +1188,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1239,7 +1239,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1288,7 +1288,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]
@@ -1337,7 +1337,7 @@
               "bearer": [
                 {
                   "key": "token",
-                  "value": "{{auth_secret_02bn}}",
+                  "value": "",
                   "type": "string"
                 }
               ]

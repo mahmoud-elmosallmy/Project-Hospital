@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AppointmentController extends Controller
 {
@@ -12,7 +13,11 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-             $appointment = Appointment::all();
+          $appointment = Auth::user()->role_id == 1 
+    ? Appointment::all() 
+    : (Auth::user()->role_id == 2 
+        ? Appointment::where('doctor_id', Auth::id())->get() 
+        : Appointment::whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->get());
         return response()->json([
             'message' => 'All Appointments',
             'status' => 200,
@@ -20,13 +25,7 @@ class AppointmentController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+   
 
     /**
      * Store a newly created resource in storage.
@@ -64,7 +63,11 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-        $appointment = Appointment::find($id);
+    $appointment = Auth::user()->role_id == 1 
+    ? Appointment::find($id) 
+    : (Auth::user()->role_id == 2 
+        ? Appointment::where('doctor_id', Auth::id())->where('id', $id)->first() 
+        : Appointment::where('id', $id)->whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->first());
         if (!$appointment) {
             return response()->json([
                 'message' => 'Appointment not found',
@@ -78,20 +81,14 @@ class AppointmentController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Appointment $appointment)
-    {
-        //
-    }
+   
 
     /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, $id)
     {
-        $appointment = Appointment::find($id);
+        $appointment = Auth::user()->role_id == 1 ? Appointment::find($id) : Appointment::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$appointment) {
             return response()->json([
                 'message' => 'Appointment not found',
@@ -130,7 +127,7 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $appointment = Appointment::find($id);
+        $appointment = Auth::user()->role_id == 1 ? Appointment::find($id) : Appointment::where('doctor_id', Auth::id())->where('id', $id)->first();
         if (!$appointment) {
             return response()->json([
                 'message' => 'Appointment not found',

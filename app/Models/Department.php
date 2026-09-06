@@ -13,16 +13,7 @@ class Department extends Model
         "image_department",
         "status",
     ];
-    /*
-    status = 1
-    القسم يعمل
-    status = 0
-    القسم متوقف
-    -------------
-    1 = Active
-    0 = Inactive
-    */
-
+   
     public function doctors() {
         return $this->belongsToMany(
             Doctor::class,

@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorDepartment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorDepartmentController extends Controller
 {
 
     public function index() {
-        $doctors_department = DoctorDepartment::all();
+        $doctors_department = Auth::user()->role_id == 1 ? DoctorDepartment::all() : DoctorDepartment::where('doctor_id', Auth::id())->get();
         $data = [
             "message" => "Show All Doctor Department",
             "status" => 200,
@@ -51,7 +52,7 @@ class DoctorDepartmentController extends Controller
 
     public function show($id) {
 
-        $doctor_department = DoctorDepartment::FindOrfail($id);
+        $doctor_department = Auth::user()->role_id == 1 ? DoctorDepartment::FindOrfail($id) : DoctorDepartment::where('doctor_id', Auth::id())->where('id', $id)->first();
         $data = [
             "message" => "Doctor Department Found",
             "status" => 200,
@@ -62,7 +63,7 @@ class DoctorDepartmentController extends Controller
 
     public function update(Request $request,$id) {
 
-        $doctor_department = DoctorDepartment::FindOrFail($id);
+        $doctor_department = Auth::user()->role_id == 1 ? DoctorDepartment::FindOrfail($id) : DoctorDepartment::where('doctor_id', Auth::id())->where('id', $id)->first();
 
         $validator = Validator::make($request->all(),[
             "doctor_id" => "required|exists:doctors,id",
@@ -95,7 +96,7 @@ class DoctorDepartmentController extends Controller
 
     public function destroy($id) { 
 
-        $doctor_department = DoctorDepartment::FindOrFail($id);
+        $doctor_department = Auth::user()->role_id == 1 ? DoctorDepartment::FindOrfail($id) : DoctorDepartment::where('doctor_id', Auth::id())->where('id', $id)->first();
 
         $doctor_department->delete();
 
