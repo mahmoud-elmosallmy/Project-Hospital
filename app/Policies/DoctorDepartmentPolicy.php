@@ -17,11 +17,10 @@ class DoctorDepartmentPolicy
 
     public function view(User $user, DoctorDepartment $doctorDepartment): bool
     {
+        if ($user->role_id === 3) {
+            return true;
+        }
         return $user->id === $doctorDepartment->doctor_id;
     }
-
-    public function delete(User $user, DoctorDepartment $doctorDepartment): bool
-    {
-        return $user->id === $doctorDepartment->doctor_id;
-    }
+   
 }

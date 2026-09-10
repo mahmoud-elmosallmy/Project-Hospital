@@ -5,9 +5,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\MedicalRecord;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-
+use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class MedicalRecordController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
@@ -32,6 +33,7 @@ class MedicalRecordController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', MedicalRecord::class);
          $validator = Validator::make($request->all(), [
             'patient_id' => 'required|exists:users,id',
             'doctor_id' => 'required|exists:users,id',
@@ -62,19 +64,14 @@ class MedicalRecordController extends Controller
      */
     public function show($id)
     {
-    
-
-    $medicalRecord = Auth::user()->role_id == 1 
-    ? MedicalRecord::find($id) 
-    : (Auth::user()->role_id == 2 
-        ? MedicalRecord::where('doctor_id', Auth::id())->where('id', $id)->first() 
-        : MedicalRecord::where('id', $id)->whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->first());
+    $medicalRecord = MedicalRecord::find($id);
         if (!$medicalRecord) {
             return response()->json([
                 'message' => 'Medical Record not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('view', $medicalRecord);
         return response()->json([
             'message' => 'Medical Record details',
             'status' => 200,
@@ -89,16 +86,14 @@ class MedicalRecordController extends Controller
      */
     public function update(Request $request, $id)
     {
-      $medicalRecord = Auth::user()->role_id == 1 
-        ? MedicalRecord::find($id) 
-        : MedicalRecord::where('doctor_id', Auth::id())->where('id', $id)->first();
+      $medicalRecord = MedicalRecord::find($id);
         if (!$medicalRecord) {
             return response()->json([
                 'message' => 'Medical Record not found',
                 'status' => 404
             ], 404);
         }
-
+        $this->authorize('update', $medicalRecord);
         $validator = Validator::make($request->all(), [
             'patient_id' => 'sometimes|exists:users,id',
             'doctor_id' => 'sometimes|exists:users,id',
@@ -130,16 +125,14 @@ class MedicalRecordController extends Controller
      */
     public function destroy($id)
     {
-        $medicalRecord = Auth::user()->role_id == 1 
-        ? MedicalRecord::find($id) 
-        : MedicalRecord::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $medicalRecord = MedicalRecord::find($id);
         if (!$medicalRecord) {
             return response()->json([
                 'message' => 'Medical Record not found',
                 'status' => 404
             ], 404);
         }
-
+        $this->authorize('delete', $medicalRecord);
         $medicalRecord->delete();
         return response()->json([
             'message' => 'Medical Record deleted successfully',

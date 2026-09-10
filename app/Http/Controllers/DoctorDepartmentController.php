@@ -6,22 +6,30 @@ use App\Models\DoctorDepartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class DoctorDepartmentController extends Controller
 {
-
-    public function index() {
-        $doctors_department = Auth::user()->role_id == 1 ? DoctorDepartment::all() : DoctorDepartment::where('doctor_id', Auth::id())->get();
+    use AuthorizesRequests;
+    public function index()
+    {
+        $user = Auth::user();
+        if ($user->role_id === 1 || $user->role_id === 3) {
+            $doctors_department = DoctorDepartment::all();
+        } else {
+            $doctors_department = DoctorDepartment::where('doctor_id', $user->id)->get();
+        }
         $data = [
             "message" => "Show All Doctor Department",
             "status" => 200,
             "data" => $doctors_department
         ];
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 
-    public function store(Request $request) {
-
+    public function store(Request $request)
+    {
+        $this->authorize('create', DoctorDepartment::class);
         $validator = Validator::make($request->all(), [
             "doctor_id" => "required|exists:doctors,id",
             "department_id" => "required|exists:departments,id",
@@ -33,7 +41,7 @@ class DoctorDepartmentController extends Controller
                 "status" => 422,
                 "data" => $validator->errors(),
             ];
-            return response()->json($data,422);
+            return response()->json($data, 422);
         }
 
         $doctor_department = DoctorDepartment::create([
@@ -41,31 +49,51 @@ class DoctorDepartmentController extends Controller
             "department_id" => $request->department_id,
         ]);
 
-        $data = [ 
+        $data = [
             "message" => "SuccessFully Created Doctor Department",
             "status" => 201,
             "data" => $doctor_department,
         ];
 
-        return response()->json($data,201);
+        return response()->json($data, 201);
     }
 
-    public function show($id) {
+    public function show($id)
+    {
 
-        $doctor_department = Auth::user()->role_id == 1 ? DoctorDepartment::FindOrfail($id) : DoctorDepartment::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $doctor_department = DoctorDepartment::find($id);
+        if(!$doctor_department){
+            $data = [
+                "message" => "Doctor Department Not Found",
+                "status" => 404,
+                "data" => null
+            ];
+            return response()->json($data, 404);
+        }
+        $this->authorize('view', $doctor_department);
         $data = [
             "message" => "Doctor Department Found",
             "status" => 200,
             "data" => $doctor_department
         ];
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 
-    public function update(Request $request,$id) {
+    public function update(Request $request, $id)
+    {
 
-        $doctor_department = Auth::user()->role_id == 1 ? DoctorDepartment::FindOrfail($id) : DoctorDepartment::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $doctor_department = DoctorDepartment::find($id);
+        if (!$doctor_department) {
+            $data = [
+                "message" => "Doctor Department Not Found",
+                "status" => 404,
+                "data" => null
+            ];
+            return response()->json($data, 404);
+        }
+        $this->authorize('update', $doctor_department);
 
-        $validator = Validator::make($request->all(),[
+        $validator = Validator::make($request->all(), [
             "doctor_id" => "required|exists:doctors,id",
             "department_id" => "required|exists:departments,id",
         ]);
@@ -76,7 +104,7 @@ class DoctorDepartmentController extends Controller
                 "status" => 422,
                 "data" => $validator->errors()
             ];
-            return response()->json($data,422);
+            return response()->json($data, 422);
         } else {
             $doctor_department->update([
                 "doctor_id" => $request->doctor_id,
@@ -89,15 +117,23 @@ class DoctorDepartmentController extends Controller
                 "data" => $doctor_department,
             ];
 
-            return response()->json($data,200);
-        } 
-
+            return response()->json($data, 200);
+        }
     }
 
-    public function destroy($id) { 
+    public function destroy($id)
+    {
 
-        $doctor_department = Auth::user()->role_id == 1 ? DoctorDepartment::FindOrfail($id) : DoctorDepartment::where('doctor_id', Auth::id())->where('id', $id)->first();
-
+        $doctor_department = DoctorDepartment::find($id);
+        if (!$doctor_department) {
+            $data = [
+                "message" => "Doctor Department Not Found",
+                "status" => 404,
+                "data" => null
+            ];
+            return response()->json($data, 404);
+        }
+        $this->authorize('delete', $doctor_department);
         $doctor_department->delete();
 
         $data = [
@@ -106,6 +142,6 @@ class DoctorDepartmentController extends Controller
             "data" => $doctor_department,
         ];
 
-        return response()->json($data,200);
+        return response()->json($data, 200);
     }
 }

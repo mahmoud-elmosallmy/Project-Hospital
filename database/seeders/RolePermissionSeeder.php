@@ -32,6 +32,7 @@ class RolePermissionSeeder extends Seeder
             $permissions['services.view']->id,
             $permissions['doctors.view']->id,
             $permissions['doctor_schedules.view']->id,
+            $permissions['doctor_schedules.create']->id,
             $permissions['doctor_schedules.update']->id,
             $permissions['doctor_schedules.delete']->id,   //اضافه ان الادمن لازم يوافق علي تعديل المواعيد
             $permissions['appointments.view']->id,

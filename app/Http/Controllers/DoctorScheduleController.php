@@ -6,15 +6,21 @@ use App\Models\DoctorSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class DoctorScheduleController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $doctorSchedules = Auth::user()->role_id == 1 ? DoctorSchedule::all() : DoctorSchedule::where('doctor_id', Auth::id())->get();
+        $user = Auth::user();
+        if (in_array($user->role_id, [1, 3, 4])) {
+            $doctorSchedules = DoctorSchedule::all();
+        } else {
+            $doctorSchedules = DoctorSchedule::where('doctor_id', $user->id)->get();
+        }
         return response()->json([
             'message' => 'All Doctor Schedules',
             'status' => 200,
@@ -44,8 +50,12 @@ class DoctorScheduleController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-
-        $doctorSchedule = DoctorSchedule::create($validator->validated());
+        $user = Auth::user();
+        $data = $validator->validated();
+        if ($user->role_id === 2) {
+            $data['doctor_id'] = $user->id; 
+        }
+        $doctorSchedule = DoctorSchedule::create($data);
         return response()->json([
             'message' => 'Doctor Schedule created successfully',
             'status' => 201,
@@ -58,13 +68,19 @@ class DoctorScheduleController extends Controller
      */
     public function show($id)
     {
-        $doctorSchedule = Auth::user()->role_id == 1 ? DoctorSchedule::find($id) : DoctorSchedule::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $user = Auth::user();
+        if(in_array($user->role_id, [1, 3, 4])){
+         $doctorSchedule = DoctorSchedule::find($id);
+        }else{
+            $doctorSchedule = DoctorSchedule::where('id', $id)->where('doctor_id', $user->id)->first();
+        }
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('view', $doctorSchedule);
         return response()->json([
             'message' => 'Doctor Schedule details',
             'status' => 200,
@@ -72,9 +88,7 @@ class DoctorScheduleController extends Controller
         ], 200);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+
    
 
     /**
@@ -82,13 +96,14 @@ class DoctorScheduleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $doctorSchedule = Auth::user()->role_id == 1 ? DoctorSchedule::find($id) : DoctorSchedule::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $doctorSchedule =DoctorSchedule::find($id);
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('update', $doctorSchedule);
         $data = $request->all();
         if (!$request->has('start_time')) {
             $data['start_time'] = $doctorSchedule->start_time;
@@ -127,13 +142,14 @@ class DoctorScheduleController extends Controller
      */
     public function destroy($id)
     {
-        $doctorSchedule = Auth::user()->role_id == 1 ? DoctorSchedule::find($id) : DoctorSchedule::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $doctorSchedule = DoctorSchedule::find($id);
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('delete', $doctorSchedule);
         $doctorSchedule->delete();
         return response()->json([
             'message' => 'Doctor Schedule deleted successfully',

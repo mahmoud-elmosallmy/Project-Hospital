@@ -21,7 +21,7 @@ class RecordPolicy
     }
     public function create(User $user): bool
     {
-        return in_array($user->role_id, [1, 2]); 
+        return $user->role_id === 2;
     }
     public function update(User $user, MedicalRecord $record): bool
     {

@@ -7,12 +7,25 @@ use App\Models\Patient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class PatientController extends Controller
 {
+    use AuthorizesRequests;
        public function index()
     {
-        $patient = Auth::user()->role_id == 1 ? Patient::all() : Patient::where('user_id', Auth::id())->get();
+        $user = Auth::user();
+        if (in_array($user->role_id, [1, 3])) {
+            $patient = Patient::all();
+        } elseif( $user->role_id === 2) {
+            $patient = Patient::whereHas('appointments', function ($query) use ($user) {
+                $query->where('doctor_id', $user->id);
+            })->get();
+        }else{
+            return response()->json([
+                'message' => 'Unauthorized',
+                'status' => 403
+            ], 403);
+        }
         return response()->json([
             'message' => 'All patient',
             'status' => 200,
@@ -21,18 +34,11 @@ class PatientController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Patient::class);
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer|exists:Users,id',
             'date_of_birth' => 'nullable|date',
@@ -63,13 +69,14 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-     $patient = Auth::user()->role_id == 1 ? Patient::find($id) : Patient::where('user_id', Auth::id())->where('id', $id)->first();
+     $patient = Patient::find($id);
         if (!$patient) {
             return response()->json([
                 'message' => 'patient not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('view', $patient);
         return response()->json([
             'message' => 'patient details',
             'status' => 200,
@@ -87,13 +94,14 @@ class PatientController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $patient = Auth::user()->role_id == 1 ? Patient::find($id) : Patient::where('user_id', Auth::id())->where('id', $id)->first();
+        $patient = Patient::find($id);
         if (!$patient) {
             return response()->json([
                 'message' => 'patient not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('update', $patient);
         $validator = Validator::make($request->all(), [
             'user_id' => 'sometimes|integer|exists:Users,id',
             'date_of_birth' => 'sometimes|date',
@@ -124,13 +132,14 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        $patient = Auth::user()->role_id == 1 ? Patient::find($id) : Patient::where('user_id', Auth::id())->where('id', $id)->first();
+        $patient = Patient::find($id);
         if(!$patient){
             return response()->json([
                 'message' => 'patient not found',
                 'status' => 404
             ],404);
         }
+        $this->authorize('delete', $patient);
         $patient->delete();
         return response()->json([
             'message' => 'patient deleted successfully',

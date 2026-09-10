@@ -5,19 +5,25 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 class AppointmentController extends Controller
 {
+    use AuthorizesRequests;
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-          $appointment = Auth::user()->role_id == 1 
-    ? Appointment::all() 
-    : (Auth::user()->role_id == 2 
-        ? Appointment::where('doctor_id', Auth::id())->get() 
-        : Appointment::whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->get());
+       $user = Auth::user();
+        if ($user->role_id == 1 || $user->role_id == 3) {
+            $appointment = Appointment::all();
+        } elseif ($user->role_id == 2) {
+            $appointment = Appointment::where('doctor_id', $user->id)->get();
+        } else {
+            $appointment = Appointment::whereHas('patient', function($q) use ($user) {
+                $q->where('user_id', $user->id);
+            })->get();
+        }
         return response()->json([
             'message' => 'All Appointments',
             'status' => 200,
@@ -49,7 +55,7 @@ class AppointmentController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-
+          $this->authorize('create', Appointment::class);
         $appointment = Appointment::create($validator->validated());
         return response()->json([
             'message' => 'Appointment created successfully',
@@ -63,17 +69,15 @@ class AppointmentController extends Controller
      */
     public function show($id)
     {
-    $appointment = Auth::user()->role_id == 1 
-    ? Appointment::find($id) 
-    : (Auth::user()->role_id == 2 
-        ? Appointment::where('doctor_id', Auth::id())->where('id', $id)->first() 
-        : Appointment::where('id', $id)->whereHas('patient', function($q) { $q->where('user_id', Auth::id()); })->first());
+    $appointment =  Appointment::find($id); 
+    
         if (!$appointment) {
             return response()->json([
                 'message' => 'Appointment not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('view', $appointment);
         return response()->json([
             'message' => 'Appointment details',
             'status' => 200,
@@ -88,13 +92,14 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $appointment = Auth::user()->role_id == 1 ? Appointment::find($id) : Appointment::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $appointment = Appointment::find($id);
         if (!$appointment) {
             return response()->json([
                 'message' => 'Appointment not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('update', $appointment);
 
         $validator = Validator::make($request->all(), [
             'patient_id' => 'sometimes|exists:users,id',
@@ -127,13 +132,14 @@ class AppointmentController extends Controller
      */
     public function destroy($id)
     {
-        $appointment = Auth::user()->role_id == 1 ? Appointment::find($id) : Appointment::where('doctor_id', Auth::id())->where('id', $id)->first();
+        $appointment = Appointment::find($id);
         if (!$appointment) {
             return response()->json([
                 'message' => 'Appointment not found',
                 'status' => 404
             ], 404);
         }
+        $this->authorize('delete', $appointment);
         $appointment->delete();
         return response()->json([
             'message' => 'Appointment deleted successfully',
