@@ -62,6 +62,8 @@ class MedicalRecordController extends Controller
      */
     public function show($id)
     {
+    
+
     $medicalRecord = Auth::user()->role_id == 1 
     ? MedicalRecord::find($id) 
     : (Auth::user()->role_id == 2 

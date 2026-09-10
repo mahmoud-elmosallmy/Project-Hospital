@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Models;
-
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Traits\LogsActivity;
+
 class User extends Authenticatable
 
 {
@@ -24,7 +23,18 @@ class User extends Authenticatable
         'status',
         'email_verified_at'
     ];
+    protected static function booted()
+    {
+        static::saved(function ($user) {
+            if ($user->role_id == 2 && !$user->doctor) {
+                \App\Models\Doctor::create(['user_id' => $user->id]);
+            }
 
+            if ($user->role_id == 4 && !$user->patient) {
+                \App\Models\Patient::create(['user_id' => $user->id]);
+            }
+        });
+    }
     public function role()
     {
         return $this->belongsTo(Role::class, 'role_id');
@@ -63,4 +73,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+ 
 }
+    
+

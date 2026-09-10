@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Workbench\App\Models\User as ModelsUser;
-
+use Illuminate\Foundation\Auth\Access\AuthorizationException;
 class UserController extends Controller
 {
+    use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
        public function index()
     {
         $user = User::all();
@@ -18,14 +22,8 @@ class UserController extends Controller
             'data' => $user
         ], 200);
     }
-    // public function user(Request $request)
-    // {
-    // $data = [
-    //     "message" => "User data",
-    //     "user" => $request->user()
-    // ];
-    // return response()->json($data, 200);
-    // }
+   
+  
       public function show($id)
     {
      $user = User::find($id);

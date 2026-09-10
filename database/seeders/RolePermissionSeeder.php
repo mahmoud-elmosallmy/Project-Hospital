@@ -14,15 +14,11 @@ class RolePermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Role
-        // $admin = Role::firstOrCreate(["name" => "Admin"] , ["description" => "Admin role"]);
-        // $doctor = Role::firstOrCreate(["name" => "Doctor"] , ["description" => "Doctor role"]);
-        // $reception = Role::firstOrCreate(["name" => "Reception"] , ["description" => "Reception role"]);
-        // $patient = Role::firstOrCreate(["name" => "Patient"] , ["description" => "Patient role"]);
-          $admin = Role::where('name', 'Admin')->firstOrFail();
-        $doctor = Role::where('name', 'Doctor')->firstOrFail();
-        $reception = Role::where('name', 'Reception')->firstOrFail();
-        $patient = Role::where('name', 'Patient')->firstOrFail();
+   
+          $admin = Role::firstOrCreate(['name' => 'Admin'],['description'=>'Admin role with full permissions']);
+        $doctor = Role::firstOrCreate(['name' => 'Doctor'],['description'=>'Doctor role']);
+        $reception = Role::firstOrCreate(['name' => 'Reception'],['description'=>'Reception role']);
+        $patient = Role::firstOrCreate(['name' => 'Patient'],['description'=>'Patient role']);
 
         // Permissions
         $permissions = Permission::all()->keyBy("name");
