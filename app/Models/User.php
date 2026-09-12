@@ -49,6 +49,14 @@ class User extends Authenticatable
     {
         return $this->hasOne(Patient::class, 'user_id');
     }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+    public function auditLogs()
+    {
+        return $this->hasMany(AuditLog::class);
+    }
 
 
     /**
@@ -73,6 +81,7 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
  
 }
     

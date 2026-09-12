@@ -72,7 +72,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}', [DepartmentController::class, 'destroy'])->middleware('permission:departments.delete');
     });
 
-    Route::prefix('doctor-departments')->group(function () {
+    Route::prefix('doctor_departments')->group(function () {
         Route::get('/', [DoctorDepartmentController::class, 'index'])->middleware('permission:doctor_departments.view');
         Route::get('/{id}', [DoctorDepartmentController::class, 'show'])->middleware('permission:doctor_departments.view');
         Route::post('/', [DoctorDepartmentController::class, 'store'])->middleware('permission:doctor_departments.create');
@@ -80,7 +80,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::delete('/{id}', [DoctorDepartmentController::class, 'destroy'])->middleware('permission:doctor_departments.delete');
     });
 
-  Route::prefix('contact-messages')->group(function () {
+  Route::prefix('contact_messages')->group(function () {
         Route::get('/', [ContactMessagesController::class, 'index'])->middleware('permission:messages.view');
         Route::get('/{id}', [ContactMessagesController::class, 'show'])->middleware('permission:messages.view');
         Route::post('/', [ContactMessagesController::class, 'store']);
@@ -104,7 +104,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/{id}', [ServiceController::class, 'update'])->middleware('permission:services.update');
         Route::delete('/{id}', [ServiceController::class, 'destroy'])->middleware('permission:services.delete');
     });
-   Route::prefix('audit-logs')->group(function () {
+   Route::prefix('audit_logs')->group(function () {
         Route::get('/', [AuditLogController::class, 'index'])->middleware('permission:audit_logs.view');
         Route::get('/{id}', [AuditLogController::class, 'show'])->middleware('permission:audit_logs.view');
     });
@@ -129,7 +129,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::put('/{id}', [NotificationController::class, 'update'])->middleware('permission:notifications.update');
         Route::delete('/{id}', [NotificationController::class, 'destroy'])->middleware('permission:notifications.delete');
     });
- Route::prefix('medical-records')->group(function () {
+ Route::prefix('medical_records')->group(function () {
         Route::get('/', [MedicalRecordController::class, 'index'])->middleware('permission:medical_records.view');
         Route::get('/{id}', [MedicalRecordController::class, 'show'])->middleware('permission:medical_records.view');
         Route::post('/', [MedicalRecordController::class, 'store'])->middleware('permission:medical_records.create');

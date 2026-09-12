@@ -16,4 +16,16 @@ class MedicalRecord extends Model
         'prescription',
         'notes',
     ];
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
 }

@@ -16,4 +16,16 @@ class Appointment extends Model
         'status',
         'notes',
     ];
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+    public function doctorSchedule()
+    {
+        return $this->belongsTo(DoctorSchedule::class);
+    }
 }
