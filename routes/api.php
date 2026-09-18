@@ -20,12 +20,7 @@ use App\Http\Controllers\ServiceController;
 use App\Models\Permission;
 use App\Models\Role;
 
-// Route::get('/test-role', function () {
 
-//     $admin = Role::where('name', 'Admin')->firstOrFail();
-//     $permissions = Permission::all()->keyBy("name");
-//     return response()->json($permissions);
-// });
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {

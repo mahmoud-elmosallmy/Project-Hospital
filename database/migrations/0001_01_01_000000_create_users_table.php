@@ -13,12 +13,12 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('role_id')->constrained('roles')->default(4)->onDelete('cascade')->onUpdate('cascade');
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('password');
-            $table->string('profile_image')->nullable();
-            $table->enum("status",["0","1"])->default("1");
+            // $table->string('profile_image')->nullable();->later
+            $table->enum("status",["0","1"])->default("1"); //remove the status from users table
             $table->rememberToken();
             $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
