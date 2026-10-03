@@ -14,14 +14,19 @@ class PatientPolicy
         }
         return null;
     }
-
     public function view(User $user, Patient $patient): bool
     {
       if ($user->role_id === 3) {
             return true;
         }
-        return $patient->appointments()->where('doctor_id', $user->id)->exists()
-            || $patient->medicalRecords()->where('doctor_id', $user->id)->exists();
+       
+    $doctor = \App\Models\Doctor::where('user_id', $user->id)->first();
+    if (!$doctor) {
+        return false;
+    }
+
+    return $patient->appointments()->where('doctor_id', $doctor->id)->exists()
+           || $patient->medicalRecords()->where('doctor_id', $doctor->id)->exists();
     }
     public function create(User $user): bool
     {

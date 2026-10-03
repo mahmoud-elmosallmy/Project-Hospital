@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
 {
-       public function index()
+    public function index()
     {
         $doctor = Doctor::all();
         return response()->json([
@@ -70,30 +70,25 @@ class DoctorController extends Controller
                 "bio" => $request->bio,
                 "consultation_fee" => $request->consultation_fee,
                 "status" => $request->status,
-            ]);
+                ]);
+                // $doctor = Doctor::create( $validator->validated());
+                $data = [
+                    "message" => "doctor added succsessfully",
+                    "status" => "201",
+                    "doctor" => $doctor
+                ];
+                return response()->json($data, 201);
         }
         
-            // $doctor = Doctor::create( $validator->validated());
-            $data = [
-                "message" => "doctor added succsessfully",
-                "status" => "201",
-                "doctor" => $doctor
-            ];
-            return response()->json($data, 201);
     }
 
       public function update(Request $request, $id)
     {
-        $doctor = Doctor::find($id);
-        if (!$doctor) {
-            return response()->json([
-                'message' => 'doctor not found',
-                'status' => 404
-            ], 404);
-        }
+        $doctor = Doctor::FindOrfail($id);
+
         $validator = Validator::make($request->all(), [
-              "user_id" => 'sometimes|integer|exists:users,id',
-              "profile_image" => "sometimes|image|mimes:jpeg,jpg,png,webp|max:4096",
+            "user_id" => 'sometimes|integer|exists:users,id',
+            "profile_image" => "sometimes|image|mimes:jpeg,jpg,png,webp|max:4096",
             "license_number" => 'sometimes|string|max:255',
             "qualification" => 'sometimes|string|max:255',
             "specialization" => 'sometimes|string|min:3',
@@ -102,6 +97,7 @@ class DoctorController extends Controller
             "consultation_fee" => 'sometimes|numeric',
             "status" => 'sometimes|in:0,1',
         ]);
+
 
         if ($validator->fails()) {
             return response()->json([
@@ -112,35 +108,29 @@ class DoctorController extends Controller
         } else {
             $old_image = $doctor->profile_image;
 
+            $data = $validator->validated();
+
             if ($request->hasFile("profile_image")) {
 
-                $imagePath = $request->file("image_department")
+                $imagePath = $request->file("profile_image")
                                     ->store("doctors", "public");
-            } else {
-                $imagePath = $old_image;
+        
+                // إضافة الصورة الجديدة للبيانات التي سيتم تحديثها
+                $data["profile_image"] = $imagePath;
             }
-            $doctor = Doctor::update([
-                "user_id" => $request->user_id,
-                "profile_image" => $imagePath,
-                "license_number" => $request->license_number,
-                "qualification" => $request->qualification,
-                "specialization" => $request->specialization,
-                "experience_years" => $request->experience_years,
-                "bio" => $request->bio,
-                "consultation_fee" => $request->consultation_fee,
-                "status" => $request->status,
-            ]);
-        }
+            $doctor->update($data);
+            
         if ($request->hasFile("profile_image") && $old_image && $old_image != $imagePath) {
                 Storage::disk("public")->delete($old_image);
             }
 
 
             //  $doctor->update($validator->validated());
-             return response()->json([
+                return response()->json([
                 'message' => 'doctor updated successfully',
                 'status' => 200,
                 'data' => $doctor],200 );
+        }
 
     }
      public function destroy($id)

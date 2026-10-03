@@ -9,12 +9,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizationException;
 class UserController extends Controller
 {
     use \Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-    public function __construct()
-    {
-        $this->authorizeResource(User::class, 'user');
-    }
+   
        public function index()
     {
+        $this->authorize('viewAny', User::class);
         $user = User::all();
         return response()->json([
             'message' => 'All users',
@@ -33,6 +31,7 @@ class UserController extends Controller
                 'status' => 404
             ], 404);
         }
+          $this->authorize('view',$user);
         return response()->json([
             'message' => 'user details',
             'status' => 200,
@@ -42,6 +41,7 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        $this->authorize('create',User::class);
         $validator = Validator::make($request->all(), [
             "first_name" => 'required|string|max:255',
             "last_name" => 'required|string|max:255',
@@ -64,7 +64,7 @@ class UserController extends Controller
             'last_name' => $request->last_name,
             'role_id' => $request->role_id,
             'email' => $request->email,
-            'password' => $request->password,
+            'password' =>\Illuminate\Support\Facades\Hash::make($request->password) ,
             'phone' => $request->phone,
             // 'status' => "1"
             ]);
@@ -86,6 +86,7 @@ class UserController extends Controller
                 'status' => 404
             ], 404);
         }
+          $this->authorize('update',$user);
         $validator = Validator::make($request->all(), [
             'first_name' => 'sometimes|string|max:255',
             'last_name' => 'sometimes|string|max:255',
@@ -101,6 +102,9 @@ class UserController extends Controller
                 'status' => 422,
                 'errors' => $validator->errors()
             ],422);
+             }
+             if($request->filled('password')){
+                $request->merge(['password' => \Illuminate\Support\Facades\Hash::make($request->password)]);
              }
              $user->update($validator->validated());
              return response()->json([
@@ -118,6 +122,7 @@ class UserController extends Controller
                 'status' => 404
             ],404);
         }
+          $this->authorize('delete',$user);
         $user->delete();
         return response()->json([
             'message' => 'user deleted successfully',

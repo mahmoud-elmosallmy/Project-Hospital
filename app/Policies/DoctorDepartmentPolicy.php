@@ -20,7 +20,10 @@ class DoctorDepartmentPolicy
         if ($user->role_id === 3) {
             return true;
         }
-        return $user->id === $doctorDepartment->doctor_id;
+        if ($user->role_id === 2) {
+            $doctor = \App\Models\Doctor::where('user_id', $user->id)->first();
+            return $doctor && $doctor->id === $doctorDepartment->doctor_id;
+        }
+        return false;
     }
-   
 }

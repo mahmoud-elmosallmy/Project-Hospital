@@ -15,10 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade')->onUpdate('cascade');
             $table->string('profile_image')->nullable();
-            $table->string('license_number');
-            $table->string('qualification');
-            $table->string('specialization');
-            $table->string('experience_years');
+
+            $table->string('license_number')->nullable();
+            $table->string('qualification')->nullable();
+            $table->string('specialization')->nullable();
+            $table->string('experience_years')->nullable();
+
             $table->text('bio')->nullable();
             $table->decimal('consultation_fee', 8, 2)->default(0.00);
             $table->enum('status', ['0', '1'])->default('1');

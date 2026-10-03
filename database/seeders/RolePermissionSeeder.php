@@ -31,6 +31,7 @@ class RolePermissionSeeder extends Seeder
             $permissions['doctor_departments.view']->id,
             $permissions['services.view']->id,
             $permissions['doctors.view']->id,
+            $permissions['doctors.update']->id,
             $permissions['doctor_schedules.view']->id,
             $permissions['doctor_schedules.create']->id,
             $permissions['doctor_schedules.update']->id,

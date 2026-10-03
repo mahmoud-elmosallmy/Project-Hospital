@@ -14,6 +14,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny' , Appointment::class);
        $user = Auth::user();
         if ($user->role_id == 1 || $user->role_id == 3) {
             $appointment = Appointment::all();
@@ -38,6 +39,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Appointment::class);
         $validator = Validator::make($request->all(), [
             'patient_id' => 'required|exists:users,id',
             'doctor_id' => 'required|exists:users,id',
@@ -55,7 +57,7 @@ class AppointmentController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-          $this->authorize('create', Appointment::class);
+          
         $appointment = Appointment::create($validator->validated());
         return response()->json([
             'message' => 'Appointment created successfully',

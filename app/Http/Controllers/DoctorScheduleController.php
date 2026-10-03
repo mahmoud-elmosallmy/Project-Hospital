@@ -15,13 +15,15 @@ class DoctorScheduleController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', DoctorSchedule::class);
         $user = Auth::user();
-        if (in_array($user->role_id, [1, 3, 4])) {
-            $doctorSchedules = DoctorSchedule::all();
-        } else {
-            $doctorSchedules = DoctorSchedule::where('doctor_id', $user->id)->get();
-        }
-        return response()->json([
+      if (in_array($user->role_id, [1, 3, 4])) {
+        $doctorSchedules = DoctorSchedule::all();
+    } else {
+   $doctor = \App\Models\Doctor::where('user_id', $user->id)->first();
+$doctorSchedules = DoctorSchedule::where('doctor_id', $doctor->id)->get();
+    }
+;        return response()->json([
             'message' => 'All Doctor Schedules',
             'status' => 200,
             'data' => $doctorSchedules
@@ -35,7 +37,7 @@ class DoctorScheduleController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'doctor_id' => 'required|exists:users,id',
+            'doctor_id' => 'required|exists:doctors,id',
             'day_of_week' => 'required|in:Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:start_time',
@@ -53,7 +55,7 @@ class DoctorScheduleController extends Controller
         $user = Auth::user();
         $data = $validator->validated();
         if ($user->role_id === 2) {
-            $data['doctor_id'] = $user->id; 
+            $data['doctor_id'] = $user->doctor->id; 
         }
         $doctorSchedule = DoctorSchedule::create($data);
         return response()->json([
@@ -69,18 +71,16 @@ class DoctorScheduleController extends Controller
     public function show($id)
     {
         $user = Auth::user();
-        if(in_array($user->role_id, [1, 3, 4])){
+       
          $doctorSchedule = DoctorSchedule::find($id);
-        }else{
-            $doctorSchedule = DoctorSchedule::where('id', $id)->where('doctor_id', $user->id)->first();
-        }
+       
         if (!$doctorSchedule) {
             return response()->json([
                 'message' => 'Doctor Schedule not found',
                 'status' => 404
             ], 404);
         }
-        $this->authorize('view', $doctorSchedule);
+      $this->authorize('view' , $doctorSchedule);
         return response()->json([
             'message' => 'Doctor Schedule details',
             'status' => 200,
