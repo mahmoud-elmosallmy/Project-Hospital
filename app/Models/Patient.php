@@ -9,6 +9,7 @@ class Patient extends Model
     use LogsActivity;
     protected $fillable = [
         'user_id',
+        'profile_image',
         'date_of_birth',
         'gender',
         'blood_type',

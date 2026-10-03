@@ -26,6 +26,12 @@ use App\Models\Role;
 //     $permissions = Permission::all()->keyBy("name");
 //     return response()->json($permissions);
 // });
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return response()->json([
+        'user' => $request->user()
+    ]);
+});
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -64,37 +70,29 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/logout', [AuthController::class, 'logout']);
 
-  Route::prefix('departments')->group(function () {
-        Route::get('/', [DepartmentController::class, 'index'])->middleware('permission:departments.view');
-        Route::get('/{id}', [DepartmentController::class, 'show'])->middleware('permission:departments.view');
-        Route::post('/', [DepartmentController::class, 'store'])->middleware('permission:departments.create');
-        Route::put('/{id}', [DepartmentController::class, 'update'])->middleware('permission:departments.update');
-        Route::delete('/{id}', [DepartmentController::class, 'destroy'])->middleware('permission:departments.delete');
-    });
+  Route::apiResource("/departments",DepartmentController::class)
+        ->middlewareFor(['index','show'],'permission:departments.view')
+        ->middlewareFor('store', 'permission:departments.create')
+        ->middlewareFor('update', 'permission:departments.update')
+        ->middlewareFor('destroy', 'permission:departments.delete');
 
-    Route::prefix('doctor_departments')->group(function () {
-        Route::get('/', [DoctorDepartmentController::class, 'index'])->middleware('permission:doctor_departments.view');
-        Route::get('/{id}', [DoctorDepartmentController::class, 'show'])->middleware('permission:doctor_departments.view');
-        Route::post('/', [DoctorDepartmentController::class, 'store'])->middleware('permission:doctor_departments.create');
-        Route::put('/{id}', [DoctorDepartmentController::class, 'update'])->middleware('permission:doctor_departments.update');
-        Route::delete('/{id}', [DoctorDepartmentController::class, 'destroy'])->middleware('permission:doctor_departments.delete');
-    });
+  Route::apiResource("/doctor_departments",DoctorDepartmentController::class)
+        ->middlewareFor(['index','show'],'permission:departments.view')
+        ->middlewareFor('store', 'permission:departments.create')
+        ->middlewareFor('update', 'permission:departments.update')
+        ->middlewareFor('destroy', 'permission:departments.delete');
 
-  Route::prefix('contact_messages')->group(function () {
-        Route::get('/', [ContactMessagesController::class, 'index'])->middleware('permission:messages.view');
-        Route::get('/{id}', [ContactMessagesController::class, 'show'])->middleware('permission:messages.view');
-        Route::post('/', [ContactMessagesController::class, 'store']);
-        Route::put('/{id}', [ContactMessagesController::class, 'update'])->middleware('permission:messages.update');
-        Route::delete('/{id}', [ContactMessagesController::class, 'destroy'])->middleware('permission:messages.delete');
-    });
+  Route::apiResource("/contact_messages",ContactMessagesController::class)
+        ->middlewareFor(['index','show'],'permission:departments.view')
+        ->middlewareFor('store', 'permission:departments.create')
+        ->middlewareFor('update', 'permission:departments.update')
+        ->middlewareFor('destroy', 'permission:departments.delete');
 
-  Route::prefix('settings')->group(function () {
-        Route::get('/', [SettingController::class, 'index'])->middleware('permission:settings.view');
-        Route::get('/{id}', [SettingController::class, 'show'])->middleware('permission:settings.view');
-        Route::post('/', [SettingController::class, 'store'])->middleware('permission:settings.create');
-        Route::put('/{id}', [SettingController::class, 'update'])->middleware('permission:settings.update');
-        Route::delete('/{id}', [SettingController::class, 'destroy'])->middleware('permission:settings.delete');
-    });
+  Route::apiResource("/settings",ContactMessagesController::class)
+        ->middlewareFor(['index','show'],'permission:departments.view')
+        ->middlewareFor('store', 'permission:departments.create')
+        ->middlewareFor('update', 'permission:departments.update')
+        ->middlewareFor('destroy', 'permission:departments.delete');
 
     // othman
    Route::prefix('services')->group(function () {

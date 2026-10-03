@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Doctor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class DoctorController extends Controller
@@ -39,6 +40,7 @@ class DoctorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "user_id" => 'required|integer|exists:users,id',
+            "profile_image" => "required|image|mimes:jpeg,jpg,png,webp|max:4096",
             "license_number" => 'required|string|max:255',
             "qualification" => 'required|string|max:255',
             "specialization" => 'required|string|min:3',
@@ -57,14 +59,27 @@ class DoctorController extends Controller
 
             return response()->json($data, 422);
         } else {
-            $doctor = Doctor::create( $validator->validated());
+            $imagePath = $request->file("profile_image")->store("Doctors","public");
+            $doctor = Doctor::create([
+                "user_id" => $request->user_id,
+                "profile_image" => $imagePath,
+                "license_number" => $request->license_number,
+                "qualification" => $request->qualification,
+                "specialization" => $request->specialization,
+                "experience_years" => $request->experience_years,
+                "bio" => $request->bio,
+                "consultation_fee" => $request->consultation_fee,
+                "status" => $request->status,
+            ]);
+        }
+        
+            // $doctor = Doctor::create( $validator->validated());
             $data = [
                 "message" => "doctor added succsessfully",
                 "status" => "201",
                 "doctor" => $doctor
             ];
             return response()->json($data, 201);
-        }
     }
 
       public function update(Request $request, $id)
@@ -78,6 +93,7 @@ class DoctorController extends Controller
         }
         $validator = Validator::make($request->all(), [
               "user_id" => 'sometimes|integer|exists:users,id',
+              "profile_image" => "sometimes|image|mimes:jpeg,jpg,png,webp|max:4096",
             "license_number" => 'sometimes|string|max:255',
             "qualification" => 'sometimes|string|max:255',
             "specialization" => 'sometimes|string|min:3',
@@ -93,8 +109,34 @@ class DoctorController extends Controller
                 'status' => 422,
                 'errors' => $validator->errors()
             ],422);
-             }
-             $doctor->update($validator->validated());
+        } else {
+            $old_image = $doctor->profile_image;
+
+            if ($request->hasFile("profile_image")) {
+
+                $imagePath = $request->file("image_department")
+                                    ->store("doctors", "public");
+            } else {
+                $imagePath = $old_image;
+            }
+            $doctor = Doctor::update([
+                "user_id" => $request->user_id,
+                "profile_image" => $imagePath,
+                "license_number" => $request->license_number,
+                "qualification" => $request->qualification,
+                "specialization" => $request->specialization,
+                "experience_years" => $request->experience_years,
+                "bio" => $request->bio,
+                "consultation_fee" => $request->consultation_fee,
+                "status" => $request->status,
+            ]);
+        }
+        if ($request->hasFile("profile_image") && $old_image && $old_image != $imagePath) {
+                Storage::disk("public")->delete($old_image);
+            }
+
+
+            //  $doctor->update($validator->validated());
              return response()->json([
                 'message' => 'doctor updated successfully',
                 'status' => 200,

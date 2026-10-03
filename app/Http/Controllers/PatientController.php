@@ -41,6 +41,7 @@ class PatientController extends Controller
         $this->authorize('create', Patient::class);
         $validator = Validator::make($request->all(), [
             'user_id' => 'required|integer|exists:Users,id',
+            "profile_image" => "required|image|mimes:jpeg,jpg,png,webp|max:4096",
             'date_of_birth' => 'nullable|date',
             'gender' => 'required|in:male,female',
             'blood_type' => 'required|string|max:10',
@@ -55,7 +56,13 @@ class PatientController extends Controller
                 'status' => 422,
                 'errors' => $validator->errors()
             ], 422);
+        } else {
+            
         }
+
+
+
+
         $patient = Patient::create($validator->validated());
         return response()->json([
             'message' => 'patient created successfully',

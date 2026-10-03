@@ -9,6 +9,7 @@ class Doctor extends Model
     use LogsActivity;
     protected $fillable = [
         'user_id',
+        'profile_image',
         'license_number',
         'qualification',
         'specialization',
