@@ -26,6 +26,19 @@ use App\Models\Role;
 //     return response()->json($permissions);
 // });
 
+//--------------------------------------------------
+
+Route::get('/storage/{path}', function ($path) {
+    $file = storage_path('app/public/' . $path);
+
+    if (!file_exists($file)) {
+        abort(404);
+    }
+
+    return response()->file($file);
+})->where('path', '.*');
+//--------------------------------------------------
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return response()->json([
         'user' => $request->user()
